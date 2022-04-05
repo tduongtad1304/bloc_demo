@@ -9,10 +9,10 @@ class CounterApp extends MaterialApp {
   @override
 
   /// {@macro counter_app}
-  CounterApp({Key? key})
+  const CounterApp({Key? key})
       : super(
-            key: key,
-            home: const CounterPage(),
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(primarySwatch: Colors.purple));
+          key: key,
+          home: const CounterPage(),
+          debugShowCheckedModeBanner: false,
+        );
 }

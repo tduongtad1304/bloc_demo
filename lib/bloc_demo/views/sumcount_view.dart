@@ -1,9 +1,8 @@
+import 'package:bloc_demo/bloc_demo/views/second_screen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../counter.dart';
-import 'counter_view.dart';
-import 'second_screen_view.dart';
 
 class SumCountView extends StatelessWidget {
   const SumCountView({Key? key}) : super(key: key);
@@ -14,7 +13,8 @@ class SumCountView extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Third Page | Sum View'),
+            backgroundColor: const Color.fromARGB(248, 117, 57, 185),
+            title: const Text('Third Screen | Only Sum View'),
             centerTitle: true,
           ),
           body: Center(
@@ -25,11 +25,20 @@ class SumCountView extends StatelessWidget {
                   state.toString(),
                   style: Theme.of(context).textTheme.headline3,
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
                 ElevatedButton.icon(
                   icon: const Icon(Icons.restore),
-                  label: const Text('Back to Initial First Page'),
+                  label: const Text(
+                    'Back to Initial State Screen',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 17,
+                    ),
+                  ),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.red,
+                    primary: Colors.blue,
                   ),
                   onPressed: () {
                     Navigator.of(context)
@@ -38,7 +47,13 @@ class SumCountView extends StatelessWidget {
                 ),
                 ElevatedButton.icon(
                   icon: const Icon(Icons.looks_one),
-                  label: const Text("Back to First Page"),
+                  label: const Text(
+                    'Back to First Screen',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 17,
+                    ),
+                  ),
                   style: ElevatedButton.styleFrom(
                     primary: Colors.green,
                   ),
@@ -48,12 +63,33 @@ class SumCountView extends StatelessWidget {
                 ),
                 ElevatedButton.icon(
                   icon: const Icon(Icons.looks_two),
-                  label: const Text("Back to Second Page"),
+                  label: const Text(
+                    'Back to Second Screen',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 17,
+                    ),
+                  ),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.blue.withAlpha(120),
+                    primary: Colors.cyan.withBlue(150),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (ctx) => MultiBlocProvider(providers: [
+                          BlocProvider.value(
+                            value: BlocProvider.of<CounterCubit>(context),
+                          ),
+                          BlocProvider.value(
+                            value: BlocProvider.of<TextConfirmCubit>(context),
+                          ),
+                          BlocProvider.value(
+                            value: BlocProvider.of<SumCubit>(context),
+                          ),
+                        ], child: const SecondScreenView()),
+                      ),
+                      (route) => route.isFirst,
+                    );
                   },
                 ),
               ],

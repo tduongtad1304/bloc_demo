@@ -1,4 +1,3 @@
-import 'package:bloc_demo/bloc_demo/views/second_screen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
