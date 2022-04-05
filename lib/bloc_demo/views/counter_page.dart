@@ -1,3 +1,4 @@
+import 'package:bloc_demo/bloc_demo/views/second_screen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,11 +20,14 @@ class CounterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
+        BlocProvider<CounterCubit>(
           create: (context) => CounterCubit(),
         ),
-        BlocProvider(
+        BlocProvider<TextConfirmCubit>(
           create: (context) => TextConfirmCubit(),
+        ),
+        BlocProvider<SumCubit>(
+          create: (context) => SumCubit(),
         ),
       ],
       child: const CounterView(),
