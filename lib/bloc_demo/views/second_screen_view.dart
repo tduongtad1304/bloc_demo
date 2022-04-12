@@ -34,6 +34,7 @@ class SecondScreenView extends StatelessWidget {
     final TextEditingController _numberSumController = TextEditingController();
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.cyan.withBlue(150),
         centerTitle: true,
