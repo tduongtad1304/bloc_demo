@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'bloc_demo/counter.dart';
+import 'bloc_demo/views/counter_page.dart';
 
 /// {@template counter_app}
 /// A [MaterialApp] which sets the `home` to [CounterPage].

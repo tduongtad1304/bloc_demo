@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../models/user.dart';
+import '../../models/user.dart';
 
 part 'text_confirm_state.dart';
 

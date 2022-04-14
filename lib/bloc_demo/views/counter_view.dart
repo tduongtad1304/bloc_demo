@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../counter.dart';
+import '../cubit/cubit.dart';
 
-import '../widgets/custom_textfield.dart';
+import '../widgets/widgets.dart';
 import 'second_screen_view.dart';
 import 'sumcount_view.dart';
 
@@ -10,14 +10,19 @@ import 'sumcount_view.dart';
 /// A [StatelessWidget] which reacts to the provided
 /// [CounterCubit] state and notifies it in response to user input.
 /// {@endtemplate}
-class CounterView extends StatelessWidget {
+class CounterView extends StatefulWidget {
   const CounterView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    TextEditingController _nameController = TextEditingController();
-    TextEditingController _numberController = TextEditingController();
+  State<CounterView> createState() => _CounterViewState();
+}
 
+class _CounterViewState extends State<CounterView> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _numberController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -102,16 +107,12 @@ class CounterView extends StatelessWidget {
                 );
               }
             }),
-            BlocBuilder<SumCubit, int>(
-              builder: (context, state) {
-                return Text(
-                  'Sum: ' + state.toString(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 17,
-                  ),
-                );
-              },
+            Text(
+              'Sum: ' + context.watch<SumCubit>().state.toString(),
+              style: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 17,
+              ),
             ),
             const SizedBox(
               height: 20,
@@ -154,13 +155,13 @@ class CounterView extends StatelessWidget {
                       builder: (_) => MultiBlocProvider(
                         providers: [
                           BlocProvider.value(
-                            value: BlocProvider.of<CounterCubit>(context),
+                            value: context.read<CounterCubit>(),
                           ),
                           BlocProvider.value(
-                            value: BlocProvider.of<TextConfirmCubit>(context),
+                            value: context.read<TextConfirmCubit>(),
                           ),
                           BlocProvider.value(
-                            value: BlocProvider.of<SumCubit>(context),
+                            value: context.read<SumCubit>(),
                           ),
                         ],
                         child: const SecondScreenView(),
@@ -187,13 +188,13 @@ class CounterView extends StatelessWidget {
                       builder: (_) => MultiBlocProvider(
                         providers: [
                           BlocProvider.value(
-                            value: BlocProvider.of<CounterCubit>(context),
+                            value: context.read<CounterCubit>(),
                           ),
                           BlocProvider.value(
-                            value: BlocProvider.of<TextConfirmCubit>(context),
+                            value: context.read<TextConfirmCubit>(),
                           ),
                           BlocProvider.value(
-                            value: BlocProvider.of<SumCubit>(context),
+                            value: context.read<SumCubit>(),
                           ),
                         ],
                         child: const SumCountView(),
@@ -259,6 +260,13 @@ class CounterView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _numberController.dispose();
+    super.dispose();
   }
 
   //return custom snackBar
