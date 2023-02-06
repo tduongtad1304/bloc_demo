@@ -21,11 +21,9 @@ class SumCountView extends StatelessWidget {
           children: [
             Text(
               context.watch<SumCubit>().state.toString(),
-              style: Theme.of(context).textTheme.headline3,
+              style: Theme.of(context).textTheme.displaySmall,
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             ElevatedButton.icon(
               icon: const Icon(Icons.restore),
               label: const Text(
@@ -36,7 +34,7 @@ class SumCountView extends StatelessWidget {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                primary: Colors.blue,
+                backgroundColor: Colors.blue,
               ),
               onPressed: () {
                 Navigator.of(context)
@@ -52,9 +50,7 @@ class SumCountView extends StatelessWidget {
                   fontSize: 17,
                 ),
               ),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-              ),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
               onPressed: () {
                 Navigator.of(context).popUntil((route) => route.isFirst);
               },
@@ -69,22 +65,24 @@ class SumCountView extends StatelessWidget {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                primary: Colors.cyan.withBlue(150),
-              ),
+                  backgroundColor: Colors.cyan.withBlue(150)),
               onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
-                    builder: (ctx) => MultiBlocProvider(providers: [
-                      BlocProvider.value(
-                        value: context.read<CounterCubit>(),
-                      ),
-                      BlocProvider.value(
-                        value: context.read<TextConfirmCubit>(),
-                      ),
-                      BlocProvider.value(
-                        value: context.read<SumCubit>(),
-                      ),
-                    ], child: const SecondScreenView()),
+                    builder: (ctx) => MultiBlocProvider(
+                      providers: [
+                        BlocProvider.value(
+                          value: context.read<CounterCubit>(),
+                        ),
+                        BlocProvider.value(
+                          value: context.read<TextConfirmCubit>(),
+                        ),
+                        BlocProvider.value(
+                          value: context.read<SumCubit>(),
+                        ),
+                      ],
+                      child: const SecondScreenView(),
+                    ),
                   ),
                   (route) => route.isFirst,
                 );

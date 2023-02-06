@@ -5,39 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/widgets.dart';
 import 'sumcount_view.dart';
 
-class SecondScreenView extends StatefulWidget {
+class SecondScreenView extends StatelessWidget {
   const SecondScreenView({Key? key}) : super(key: key);
 
-  @override
-  State<SecondScreenView> createState() => _SecondScreenViewState();
-}
-
-class _SecondScreenViewState extends State<SecondScreenView> {
-  final TextEditingController _numberSumController = TextEditingController();
-
-  SnackBar _snackBar({
-    required String snackBarContent,
-  }) {
-    return SnackBar(
-      padding: const EdgeInsets.all(5),
-      width: 180,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: const Color.fromARGB(144, 8, 196, 221),
-      content: Text(
-        snackBarContent,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      duration: const Duration(seconds: 2),
-    );
-  }
-
+  static String secondRoute = '/second';
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _numberSumController = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -55,30 +29,24 @@ class _SecondScreenViewState extends State<SecondScreenView> {
             Text(
               'Name: ' +
                   context.watch<TextConfirmCubit>().state.user.name.toString(),
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Text(
               'Counter: ' +
                   context.watch<CounterCubit>().state.counterValue.toString(),
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Text(
               'Sum: ' + context.watch<SumCubit>().state.toString(),
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Enter a number '),
+                const Text('Enter a number'),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: SizedBox(
@@ -93,14 +61,11 @@ class _SecondScreenViewState extends State<SecondScreenView> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 20,
-                ),
+                const SizedBox(width: 20),
                 ElevatedButton.icon(
                   icon: const Icon(Icons.add),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
-                  ),
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.green),
                   label: const Text(
                     'Increase Sum!',
                     style: TextStyle(
@@ -114,12 +79,10 @@ class _SecondScreenViewState extends State<SecondScreenView> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             ElevatedButton.icon(
-              style:
-                  ElevatedButton.styleFrom(primary: Colors.cyan.withBlue(150)),
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.cyan.withBlue(150)),
               icon: const Icon(Icons.looks_one),
               label: const Text(
                 'Go back to First Page with Sum value',
@@ -129,31 +92,15 @@ class _SecondScreenViewState extends State<SecondScreenView> {
                 ),
               ),
               onPressed: () {
-                Navigator.of(context).popUntil((route) => route.isFirst
-                    // MaterialPageRoute(
-                    //   builder: (ctx) => MultiBlocProvider(providers: [
-                    //     BlocProvider.value(
-                    //       value: BlocProvider.of<CounterCubit>(context),
-                    //     ),
-                    //     BlocProvider.value(
-                    //       value: BlocProvider.of<TextConfirmCubit>(context),
-                    //     ),
-                    //     BlocProvider.value(
-                    //       value: BlocProvider.of<SumCubit>(context),
-                    //     ),
-                    //   ], child: const CounterView()),
-                    // ),
-                    );
-                ScaffoldMessenger.of(context).showSnackBar(_snackBar(
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                ScaffoldMessenger.of(context).showSnackBar(snackBar(
                     snackBarContent: 'Sum received from Second Page: ' +
                         context.read<SumCubit>().state.toString()));
               },
             ),
             ElevatedButton.icon(
               icon: const Icon(Icons.repeat_one_outlined),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.red,
-              ),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
               label: const Text(
                 'Reset Sum and back to First Page',
                 style: TextStyle(
@@ -163,31 +110,15 @@ class _SecondScreenViewState extends State<SecondScreenView> {
               ),
               onPressed: () {
                 context.read<SumCubit>().resetSum();
-                Navigator.of(context).popUntil((route) => route.isFirst
-                    // MaterialPageRoute(
-                    //   builder: (ctx) => MultiBlocProvider(providers: [
-                    //     BlocProvider.value(
-                    //       value: BlocProvider.of<CounterCubit>(context),
-                    //     ),
-                    //     BlocProvider.value(
-                    //       value: BlocProvider.of<TextConfirmCubit>(context),
-                    //     ),
-                    //     BlocProvider.value(
-                    //       value: BlocProvider.of<SumCubit>(context),
-                    //     ),
-                    //   ], child: const CounterView()),
-                    // ),
-
-                    );
-                ScaffoldMessenger.of(context).showSnackBar(_snackBar(
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                ScaffoldMessenger.of(context).showSnackBar(snackBar(
                     snackBarContent: 'Sum received from Second Page: ' +
                         context.read<SumCubit>().state.toString()));
               },
             ),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(248, 141, 64, 230),
-              ),
+                  backgroundColor: const Color.fromARGB(248, 141, 64, 230)),
               icon: const Icon(Icons.looks_3),
               label: const Text(
                 'Only Sum Screen',
@@ -199,17 +130,20 @@ class _SecondScreenViewState extends State<SecondScreenView> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (ctx) => MultiBlocProvider(providers: [
-                      BlocProvider.value(
-                        value: context.read<CounterCubit>(),
-                      ),
-                      BlocProvider.value(
-                        value: context.read<TextConfirmCubit>(),
-                      ),
-                      BlocProvider.value(
-                        value: context.read<SumCubit>(),
-                      ),
-                    ], child: const SumCountView()),
+                    builder: (ctx) => MultiBlocProvider(
+                      providers: [
+                        BlocProvider.value(
+                          value: context.read<CounterCubit>(),
+                        ),
+                        BlocProvider.value(
+                          value: context.read<TextConfirmCubit>(),
+                        ),
+                        BlocProvider.value(
+                          value: context.read<SumCubit>(),
+                        ),
+                      ],
+                      child: const SumCountView(),
+                    ),
                   ),
                 );
               },
@@ -218,11 +152,5 @@ class _SecondScreenViewState extends State<SecondScreenView> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _numberSumController.dispose();
-    super.dispose();
   }
 }

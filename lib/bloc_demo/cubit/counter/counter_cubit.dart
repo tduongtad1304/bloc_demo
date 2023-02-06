@@ -2,15 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 part 'counter_state.dart';
 
-/// {@template counter_cubit}
-/// A [Cubit] which manages an [int] as its state.
-/// {@endtemplate}
-
 CounterState counterState =
     CounterState(counterValue: 0, wasIncremented: false);
 
 class CounterCubit extends Cubit<CounterState> {
-  /// {@macro counter_cubit}
   CounterCubit() : super(counterState);
 
   /// Add 1 to the current state and return true if the value was incremented.

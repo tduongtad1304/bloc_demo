@@ -23,33 +23,22 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       cursorColor: color,
-      style: TextStyle(
-        fontSize: fontSize,
-        fontWeight: FontWeight.w400,
-      ),
+      style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w400),
       textCapitalization: TextCapitalization.words,
       textAlign: isAlign ? TextAlign.center : TextAlign.start,
       keyboardType: keyboardType,
       controller: controller,
       decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: color,
-          width: 2.0,
-          style: BorderStyle.solid,
-        )),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: color,
-            width: 2.0,
-            style: BorderStyle.solid,
+          focusedBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: color, width: 2.0, style: BorderStyle.solid),
           ),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10.0),
+          enabledBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: color, width: 2.0, style: BorderStyle.solid),
+            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
           ),
-        ),
-        labelText: labelText,
-      ),
+          labelText: labelText),
       onSubmitted: (value) {
         controller.text = value;
         if (kDebugMode) {

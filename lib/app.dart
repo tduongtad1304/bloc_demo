@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'bloc_demo/views/counter_page.dart';
+import 'bloc_demo/views/home_page.dart';
 
-/// {@template counter_app}
-/// A [MaterialApp] which sets the `home` to [CounterPage].
-/// {@endtemplate}
-class CounterApp extends MaterialApp {
+class MyApp extends MaterialApp {
   @override
-
-  /// {@macro counter_app}
-  const CounterApp({Key? key})
+  const MyApp({Key? key})
       : super(
           key: key,
-          home: const CounterPage(),
+          home: const HomePage(),
           debugShowCheckedModeBanner: false,
         );
 }
